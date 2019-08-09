@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clifton.dao.SuccessKilledMapper">
+	<resultMap id="BaseResultMap"
+		type="com.clifton.pojo.SuccessKilled">
+		<id column="stu_num" jdbcType="VARCHAR" property="stuNum" />
+		<result column="elective_id" jdbcType="INTEGER"
+			property="electiveId" />
+		<result column="success_time" jdbcType="TIMESTAMP"
+			property="successTime" />
+		<result column="state" jdbcType="TINYINT" property="state" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		stu_num, elective_id, success_time, state
+	</sql>
+
+	<resultMap id="ResultMapWithElective"
+		type="com.clifton.pojo.SuccessKilled">
+		<id column="stu_num" jdbcType="VARCHAR" property="stuNum" />
+		<result column="elective_id" jdbcType="INTEGER"
+			property="electiveId" />
+		<result column="success_time" jdbcType="TIMESTAMP"
+			property="successTime" />
+		<result column="state" jdbcType="TINYINT" property="state" />
+		<association property="elective"
+			javaType="com.clifton.pojo.Elective">
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="elective_name" jdbcType="VARCHAR"
+				property="electiveName" />
+			<result column="stock" jdbcType="INTEGER" property="stock" />
+			<result column="start_time" jdbcType="TIMESTAMP"
+				property="startTime" />
+			<result column="end_time" jdbcType="TIMESTAMP"
+				property="endTime" />
+		</association>
+	</resultMap>
+
+	<insert id="insertSuccessKilled">
+		INSERT ignore INTO
+		success_killed(stu_num,elective_id,state,success_time)
+		VALUES
+		(#{stuNum},#{electiveId},0,#{successTime})
+	</insert>
+
+	<select id="queryByIdWithElective" resultMap="ResultMapWithElective">
+		SELECT
+		*
+		FROM success_killed sk, t_elective e
+		where e.id = sk.elective_id and sk.stu_num = #{stuNum}
+	</select>
+
+
+
+
+
+
+
+	<select id="selectByExample"
+		parameterType="com.clifton.pojo.SuccessKilledExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from success_killed
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from success_killed
+		where stu_num = #{stuNum,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		success_killed
+		where stu_num = #{stuNum,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.clifton.pojo.SuccessKilledExample">
+		delete from success_killed
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.clifton.pojo.SuccessKilled">
+		insert into success_killed (stu_num, elective_id,
+		success_time,
+		state)
+		values (#{stuNum,jdbcType=VARCHAR},
+		#{electiveId,jdbcType=INTEGER},
+		#{successTime,jdbcType=TIMESTAMP},
+		#{state,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.clifton.pojo.SuccessKilled">
+		insert into success_killed
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="stuNum != null">
+				stu_num,
+			</if>
+			<if test="electiveId != null">
+				elective_id,
+			</if>
+			<if test="successTime != null">
+				success_time,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="stuNum != null">
+				#{stuNum,jdbcType=VARCHAR},
+			</if>
+			<if test="electiveId != null">
+				#{electiveId,jdbcType=INTEGER},
+			</if>
+			<if test="successTime != null">
+				#{successTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.clifton.pojo.SuccessKilledExample"
+		resultType="java.lang.Long">
+		select count(*) from success_killed
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update success_killed
+		<set>
+			<if test="record.stuNum != null">
+				stu_num = #{record.stuNum,jdbcType=VARCHAR},
+			</if>
+			<if test="record.electiveId != null">
+				elective_id = #{record.electiveId,jdbcType=INTEGER},
+			</if>
+			<if test="record.successTime != null">
+				success_time = #{record.successTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.state != null">
+				state = #{record.state,jdbcType=TINYINT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update success_killed
+		set stu_num = #{record.stuNum,jdbcType=VARCHAR},
+		elective_id = #{record.electiveId,jdbcType=INTEGER},
+		success_time =
+		#{record.successTime,jdbcType=TIMESTAMP},
+		state =
+		#{record.state,jdbcType=TINYINT}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.clifton.pojo.SuccessKilled">
+		update success_killed
+		<set>
+			<if test="electiveId != null">
+				elective_id = #{electiveId,jdbcType=INTEGER},
+			</if>
+			<if test="successTime != null">
+				success_time = #{successTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=TINYINT},
+			</if>
+		</set>
+		where stu_num = #{stuNum,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.clifton.pojo.SuccessKilled">
+		update success_killed
+		set elective_id =
+		#{electiveId,jdbcType=INTEGER},
+		success_time =
+		#{successTime,jdbcType=TIMESTAMP},
+		state = #{state,jdbcType=TINYINT}
+		where stu_num = #{stuNum,jdbcType=VARCHAR}
+	</update>
+</mapper>

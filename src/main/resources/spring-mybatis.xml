@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<!-- 自动扫描 -->
+	<context:component-scan
+		base-package="com.clifton" />
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+				<value>classpath:redis.properties</value>
+				<value>classpath:task.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 核心线程数 -->
+		<property name="corePoolSize" value="${task.core_pool_size}" />
+		<!-- 最大线程数 -->
+		<property name="maxPoolSize" value="${task.max_pool_size}" />
+		<!-- 队列最大长度 -->
+		<property name="queueCapacity" value="${task.queue_capacity}" />
+		<!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+		<property name="keepAliveSeconds"
+			value="${task.keep_alive_seconds}" />
+	</bean>
+	<!-- 注解式 -->
+	<task:annotation-driven />
+
+	<bean name="dataSource"
+		class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+		destroy-method="close">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+	</bean>
+
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations"
+			value="classpath:mapper/*.xml"></property>
+		<property name="typeAliasesPackage" value="com.clifton.pojo"></property>
+	</bean>
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.clifton.dao" />
+		<property name="sqlSessionFactoryBeanName"
+			value="sqlSessionFactory"></property>
+	</bean>
+
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- redis连接池 -->
+	<bean id="jedisPoolConfig"
+		class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="${redis.maxActive}"></property>
+		<property name="maxIdle" value="${redis.maxIdle}"></property>
+		<property name="maxWaitMillis" value="${redis.maxWait}"></property>
+		<property name="testOnBorrow" value="${redis.testOnBorrow}"></property>
+		<property name="testOnReturn" value="${redis.testOnReturn}"></property>
+		<property name="blockWhenExhausted"
+			value="${redis.blockWhenExhausted}"></property>
+		<property name="testWhileIdle" value="${redis.testWhileIdle}"></property>
+		<property name="timeBetweenEvictionRunsMillis"
+			value="${redis.timeBetweenEvictionRunsMillis}"></property>
+		<property name="minEvictableIdleTimeMillis"
+			value="${redis.minEvictableIdleTimeMillis}"></property>
+		<property name="softMinEvictableIdleTimeMillis"
+			value="${redis.softMinEvictableIdleTimeMillis}"></property>
+	</bean>
+	<!-- redis连接工厂 -->
+	<bean id="connectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${redis.host}" p:port="${redis.port}"
+		p:password="${redis.password}" p:pool-config-ref="jedisPoolConfig"
+		p:usePool="true" p:database="${redis.database}" />
+	<!-- redis操作模板，这里采用尽量面向对象的模板 -->
+	<!--<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"> 
+		使用上句会无法使用模糊匹配 -->
+	<!-- p:enable-transaction-support="false" 设置setEnableTransactionSupport(true)，当前线程会强制先 
+		MULTI命令 -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate" p:enable-transaction-support="true">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<!-- 如果不配置Serializer，那么存储的时候只能使用String，如果用对象类型存储，那么会提示错误 can't cast to String！！！ -->
+		<property name="keySerializer">
+			<!-- 对key的默认序列化器。默认值是StringSerializer -->
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<!-- 是对value的默认序列化器，默认值是取自DefaultSerializer的JdkSerializationRedisSerializer。 -->
+		<property name="valueSerializer">
+			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+		</property>
+		<!-- 存储Map时key需要的序列化配置 -->
+		<property name="hashKeySerializer">
+		<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<!-- 存储Map时value需要的序列化配置 -->
+		<property name="hashValueSerializer">
+			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+		</property>
+		<!-- 开启事务 系统自动帮我们拿到了事务中绑定的连接。可以在一个方法的多次对Redis增删该查中，始终使用同一个连接。 -->
+		<property name="enableTransactionSupport" value="true" />
+		<!-- 在Spring中@Transactional 也是可以进行事物控制的。 -->
+	</bean>
+	<!-- 缓存管理器: 使用redis 当做缓存 -->
+	<!--<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager"> -->
+	<!--<constructor-arg ref="redisTemplate"/> -->
+	<!--</bean> -->
+	<!-- cache配置 -->
+	<!-- E Redis 配置 -->
+
+</beans>

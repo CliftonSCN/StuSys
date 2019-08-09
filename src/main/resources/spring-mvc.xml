@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+ http://www.springframework.org/schema/context 
+ http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+ http://www.springframework.org/schema/mvc 
+ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+	<context:component-scan
+		base-package="com.clifton.controller" />
+		
+	<!-- 将没有映射的请求交给服务器，将springmvc不能处理的资源交给服务器 -->
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven />
+
+	<!-- 定义跳转的文件的前后缀，视图模式配置 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/views/" p:suffix=".jsp">
+		<!-- the higher the order property, the later the view resolver is positioned 
+			in the chain. -->
+		<property name="order" value="1" />
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"  
+        p:defaultEncoding="UTF-8"  
+        p:maxUploadSize="5400000"  
+     > 
+    </bean>
+
+	<mvc:view-controller path="/login.jsp" view-name="/login.jsp"></mvc:view-controller> 
+	<mvc:view-controller path="/index" view-name="/index"></mvc:view-controller>
+</beans>
