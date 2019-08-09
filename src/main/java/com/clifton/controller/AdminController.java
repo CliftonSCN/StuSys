@@ -20,15 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.clifton.dao.association;
-import com.clifton.dao.c;
-import com.clifton.dao.foreach;
-import com.clifton.dao.from;
-import com.clifton.dao.id;
-import com.clifton.dao.insert;
-import com.clifton.dao.resultMap;
-import com.clifton.dao.t_class;
-import com.clifton.dao.where;
 import com.clifton.dto.Response;
 import com.clifton.pojo.Student;
 import com.clifton.service.StudentService;
@@ -44,46 +35,6 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	
-	int insertBatch(List<Student> students);
-
-	Student selectByNum(String num);
-	
-	List<Student> selectAllWithClass();
-	
-	<resultMap id="ResultMapWithClass" type="com.clifton.pojo.Student">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="stu_num" jdbcType="VARCHAR" property="stuNum" />
-    <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
-    <result column="stu_gender" jdbcType="INTEGER" property="stuGender" />
-    <result column="stu_age" jdbcType="INTEGER" property="stuAge" />
-    <result column="stu_phone" jdbcType="VARCHAR" property="stuPhone" />
-    <result column="stu_email" jdbcType="VARCHAR" property="stuEmail" />
-    <association property="stuClass" column="class_id" javaType="com.clifton.pojo.Class">
-    	<id column="id" jdbcType="INTEGER" property="id" />
-    	<result column="class_name" jdbcType="VARCHAR" property="className" />
-    </association>
-  </resultMap>
-  <select id="selectByNum" parameterType="java.lang.String" resultMap="ResultMapWithClass">
-	select * from t_student s, t_class c
-	where s.class_id = c.id and s.stu_num = #{num}
-</select>
-<select id="selectAllWithClass" resultMap="ResultMapWithClass">
-	select * from t_student s, t_class c
-	where s.class_id = c.id
-</select>
-	 <insert id="insertBatch" parameterType="java.util.List">
-		insert into t_student(stu_num, stu_name, stu_gender, stu_email, stu_phone) values
-		<foreach collection="list" item="stu" separator=",">
-			(
-				#{stu.stuNum},
-				#{stu.stuName},
-				#{stu.stuGender},
-				#{stu.stuEmail},
-				#{stu.stuPhone}
-			)
-		</foreach>
-	</insert>
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	

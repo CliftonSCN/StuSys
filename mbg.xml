@@ -36,7 +36,7 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
   
-    <table tableName="success_killed" domainObjectName="SuccessKilled"></table>
+    <table tableName="t_student" domainObjectName="Student"></table>
 
   </context>
 </generatorConfiguration>
