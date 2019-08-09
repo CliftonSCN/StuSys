@@ -76,15 +76,15 @@
 					<c:forEach items="${pageInfo.list }" var="stu">
 						<tr>
 						<td>
-							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='${stu.id }'><i class="layui-icon">&#xe605;</i></div>
+							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='1'><i class="layui-icon">&#xe605;</i></div>
 						</td>
 						<td>${stu.stuNum }</td>
 						<td>${stu.stuName }</td>
-						<td>${stu.stuGender }</td>
 						<td>
-							<c:if test="${stu.stuAge == 1 }">男</c:if>
-							<c:if test="${stu.stuAge == 2 }">女</c:if>
+							<c:if test="${stu.stuGender == 1 }">男</c:if>
+							<c:if test="${stu.stuGender == 2 }">女</c:if>
 						</td>
+						<td>${stu.stuAge }</td>
 						<td>${stu.stuClass.className }</td>
 						<%-- <td><fmt:formatDate value="${stu.adminCreatetime }" pattern="yyyy-MM-dd HH:mm:ss"/></td> --%>
 						<td>${stu.stuPhone }</td>

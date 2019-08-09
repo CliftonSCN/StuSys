@@ -14,8 +14,18 @@ public class Student {
     private String stuEmail;
 
     private Integer classId;
+    
+    private Class stuClass;
+    
+    public Class getStuClass() {
+		return stuClass;
+	}
 
-    public String getStuNum() {
+	public void setStuClass(Class stuClass) {
+		this.stuClass = stuClass;
+	}
+
+	public String getStuNum() {
         return stuNum;
     }
 
