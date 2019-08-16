@@ -102,24 +102,31 @@
 		使用上句会无法使用模糊匹配 -->
 	<!-- p:enable-transaction-support="false" 设置setEnableTransactionSupport(true)，当前线程会强制先 
 		MULTI命令 -->
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate" p:enable-transaction-support="true">
+	<bean id="redisTemplate"
+		class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:enable-transaction-support="true">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<!-- 如果不配置Serializer，那么存储的时候只能使用String，如果用对象类型存储，那么会提示错误 can't cast to String！！！ -->
+		<!-- 如果不配置Serializer，那么存储的时候只能使用String，如果用对象类型存储，那么会提示错误 can't cast to 
+			String！！！ -->
 		<property name="keySerializer">
 			<!-- 对key的默认序列化器。默认值是StringSerializer -->
-			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 		</property>
 		<!-- 是对value的默认序列化器，默认值是取自DefaultSerializer的JdkSerializationRedisSerializer。 -->
 		<property name="valueSerializer">
-			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+			<bean
+				class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
 		</property>
 		<!-- 存储Map时key需要的序列化配置 -->
 		<property name="hashKeySerializer">
-		<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 		</property>
 		<!-- 存储Map时value需要的序列化配置 -->
 		<property name="hashValueSerializer">
-			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+			<bean
+				class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
 		</property>
 		<!-- 开启事务 系统自动帮我们拿到了事务中绑定的连接。可以在一个方法的多次对Redis增删该查中，始终使用同一个连接。 -->
 		<property name="enableTransactionSupport" value="true" />
@@ -131,5 +138,57 @@
 	<!--</bean> -->
 	<!-- cache配置 -->
 	<!-- E Redis 配置 -->
+	
+	<bean id="aisellPermissionsAuthorizationFilter" class="com.clifton.shiro.filter.AisellPermissionsAuthorizationFilter" />
+
+	<!-- 配置自定义Realm -->
+	<bean id="myRealm" class="com.clifton.shiro.MyRealm" />
+	<!-- 安全管理器 -->
+	<bean id="securityManager"
+		class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="myRealm" />
+		<!-- <property name="cacheManager" ref=""></property> -->
+	</bean>
+	<!-- Shiro过滤器 核心 -->
+	<bean id="shiroFilter"
+		class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" depends-on="aisellPermissionsAuthorizationFilter">
+		<!-- Shiro的核心安全接口,这个属性是必须的 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 身份认证失败，则跳转到登录页面的配置 -->
+		<property name="loginUrl" value="/login.jsp" />
+		<!-- 权限认证失败，则跳转到指定页面 -->
+		<property name="unauthorizedUrl" value="/noPower.jsp" />
+		<!-- 设置权限过滤器 -->
+       <property name="filters">
+           <map>
+               <entry key="aisellPerms" value-ref="aisellPermissionsAuthorizationFilter"/>
+           </map>
+       </property>
+		<!-- Shiro连接约束配置,即过滤链的定义 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/static/**=anon
+				/lib/**=anon
+				<!--anon 表示匿名访问，不需要认证以及授权 -->
+				/user/login=anon
+				/admin/logout=anon
+				<!--authc表示需要认证 没有进行身份认证是不能进行访问的 -->
+				/admin/**=roles[admin]
+				/stu/changePassword=aisellPerms["changePassword"]
+				/*=authc
+			</value>
+		</property>
+	</bean>
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor"
+		class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!-- 开启Shiro注解 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" />
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
 
 </beans>

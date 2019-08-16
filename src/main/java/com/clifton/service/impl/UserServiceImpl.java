@@ -1,6 +1,7 @@
 package com.clifton.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,24 @@ public class UserServiceImpl implements UserService {
 		if (updateRow < 1) {
 			throw new Exception("更新失败");
 		}
+	}
+
+	@Override
+	public User findUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return userMapper.findUserByUserName(username);
+	}
+
+	@Override
+	public Set<String> findPermissions(String username) {
+		// TODO Auto-generated method stub
+		return userMapper.findPermissions(username);
+	}
+
+	@Override
+	public Set<String> findRoles(String username) {
+		// TODO Auto-generated method stub
+		return userMapper.findRoles(username);
 	}
 
 }

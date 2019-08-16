@@ -1,11 +1,15 @@
 package com.clifton.dao;
 
+import com.clifton.dto.TeacherFin;
 import com.clifton.pojo.Teacher;
 import com.clifton.pojo.TeacherExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TeacherMapper {
+	
+	List<TeacherFin> selectByStuNum(String stuNum);
+	
     long countByExample(TeacherExample example);
 
     int deleteByExample(TeacherExample example);

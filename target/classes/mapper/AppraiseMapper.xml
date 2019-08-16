@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clifton.dao.AppraiseMapper">
   <resultMap id="BaseResultMap" type="com.clifton.pojo.Appraise">
-    <result column="stu_id" jdbcType="INTEGER" property="stuId" />
-    <result column="tc_id" jdbcType="INTEGER" property="tcId" />
-    <result column="option1" jdbcType="INTEGER" property="option1" />
-    <result column="option2" jdbcType="INTEGER" property="option2" />
+    <result column="stu_id" jdbcType="VARCHAR" property="stuId" />
+    <result column="tc_id" jdbcType="VARCHAR" property="tcId" />
+    <result column="option1" jdbcType="DOUBLE" property="option1" />
+    <result column="option2" jdbcType="DOUBLE" property="option2" />
     <result column="avg" jdbcType="DOUBLE" property="avg" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -92,8 +92,8 @@
   <insert id="insert" parameterType="com.clifton.pojo.Appraise">
     insert into t_appraise (stu_id, tc_id, option1, 
       option2, avg)
-    values (#{stuId,jdbcType=INTEGER}, #{tcId,jdbcType=INTEGER}, #{option1,jdbcType=INTEGER}, 
-      #{option2,jdbcType=INTEGER}, #{avg,jdbcType=DOUBLE})
+    values (#{stuId,jdbcType=VARCHAR}, #{tcId,jdbcType=VARCHAR}, #{option1,jdbcType=DOUBLE}, 
+      #{option2,jdbcType=DOUBLE}, #{avg,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.clifton.pojo.Appraise">
     insert into t_appraise
@@ -116,16 +116,16 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="stuId != null">
-        #{stuId,jdbcType=INTEGER},
+        #{stuId,jdbcType=VARCHAR},
       </if>
       <if test="tcId != null">
-        #{tcId,jdbcType=INTEGER},
+        #{tcId,jdbcType=VARCHAR},
       </if>
       <if test="option1 != null">
-        #{option1,jdbcType=INTEGER},
+        #{option1,jdbcType=DOUBLE},
       </if>
       <if test="option2 != null">
-        #{option2,jdbcType=INTEGER},
+        #{option2,jdbcType=DOUBLE},
       </if>
       <if test="avg != null">
         #{avg,jdbcType=DOUBLE},
@@ -142,16 +142,16 @@
     update t_appraise
     <set>
       <if test="record.stuId != null">
-        stu_id = #{record.stuId,jdbcType=INTEGER},
+        stu_id = #{record.stuId,jdbcType=VARCHAR},
       </if>
       <if test="record.tcId != null">
-        tc_id = #{record.tcId,jdbcType=INTEGER},
+        tc_id = #{record.tcId,jdbcType=VARCHAR},
       </if>
       <if test="record.option1 != null">
-        option1 = #{record.option1,jdbcType=INTEGER},
+        option1 = #{record.option1,jdbcType=DOUBLE},
       </if>
       <if test="record.option2 != null">
-        option2 = #{record.option2,jdbcType=INTEGER},
+        option2 = #{record.option2,jdbcType=DOUBLE},
       </if>
       <if test="record.avg != null">
         avg = #{record.avg,jdbcType=DOUBLE},
@@ -163,10 +163,10 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update t_appraise
-    set stu_id = #{record.stuId,jdbcType=INTEGER},
-      tc_id = #{record.tcId,jdbcType=INTEGER},
-      option1 = #{record.option1,jdbcType=INTEGER},
-      option2 = #{record.option2,jdbcType=INTEGER},
+    set stu_id = #{record.stuId,jdbcType=VARCHAR},
+      tc_id = #{record.tcId,jdbcType=VARCHAR},
+      option1 = #{record.option1,jdbcType=DOUBLE},
+      option2 = #{record.option2,jdbcType=DOUBLE},
       avg = #{record.avg,jdbcType=DOUBLE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

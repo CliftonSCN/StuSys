@@ -6,6 +6,11 @@ package com.clifton.utils;
 */
 public class XmlUtil {
 	
+	/**
+	 * 判断字符串是否为空
+	 * @param string
+	 * @return
+	 */
 	public static boolean isNotEmpty(String string) {
 		if (string == null || string.length() == 0) {
 			return false;

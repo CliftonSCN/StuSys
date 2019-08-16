@@ -57,11 +57,11 @@ public class ElectiveServiceImpl implements com.clifton.service.ElectiveService 
 			return new Exposer(false, id);
 		}
 
-		// 若是秒杀未开启
 		Date startTime = elective.getStartTime();
 		Date endTime = elective.getEndTime();
 		// 系统当前时间
 		Date nowTime = new Date();
+		// 若是秒杀未开启
 		if (startTime.getTime() > nowTime.getTime() || endTime.getTime() < nowTime.getTime()) {
 			return new Exposer(false, id, nowTime.getTime(), startTime.getTime(), endTime.getTime());
 		}

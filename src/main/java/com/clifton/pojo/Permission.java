@@ -7,7 +7,12 @@ public class Permission {
 
     private String permDecription;
 
-    public Integer getId() {
+    @Override
+	public String toString() {
+		return "Permission [id=" + id + ", permName=" + permName + ", permDecription=" + permDecription + "]";
+	}
+
+	public Integer getId() {
         return id;
     }
 

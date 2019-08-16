@@ -7,7 +7,12 @@ public class Role {
 
     private String roleDescription;
 
-    public Integer getId() {
+    @Override
+	public String toString() {
+		return "Role [id=" + id + ", roleName=" + roleName + ", roleDescription=" + roleDescription + "]";
+	}
+
+	public Integer getId() {
         return id;
     }
 

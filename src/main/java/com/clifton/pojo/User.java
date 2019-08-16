@@ -12,8 +12,14 @@ public class User {
     private String salt;
 
     private Integer userStatus;
+    
+    @Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", userPassword=" + userPassword + ", userEmail="
+				+ userEmail + ", salt=" + salt + ", userStatus=" + userStatus + "]";
+	}
 
-    public Integer getId() {
+	public Integer getId() {
         return id;
     }
 

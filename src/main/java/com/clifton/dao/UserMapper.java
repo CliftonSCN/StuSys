@@ -1,11 +1,20 @@
 package com.clifton.dao;
 
-import com.clifton.pojo.User;
-import com.clifton.pojo.UserExample;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.clifton.pojo.User;
+import com.clifton.pojo.UserExample;
+
 public interface UserMapper {
+	
+	User findUserByUserName(String userName);
+	
+	Set<String> findRoles(String userName);
+	
+	Set<String> findPermissions(String userName);
 	
 	int insertStuUserBatch();
 	

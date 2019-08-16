@@ -70,6 +70,49 @@
   <sql id="Base_Column_List">
     id, user_name, user_password, user_email, salt, user_status
   </sql>
+ 
+  
+  
+  <select id="findUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select *
+  	from sys_user
+  	where user_name = #{userName}
+  </select>
+  
+  <select id="findRoles" parameterType="java.lang.String" resultType="String">
+  	SELECT r.role_name
+  	FROM sys_role r 
+  	WHERE r.id in 
+  	(
+	SELECT ur.role_id 
+	FROM sys_user u 
+	INNER JOIN sys_ur ur 
+	on u.id = ur.user_id
+	WHERE u.user_name = #{userName}
+	);
+  </select>
+  
+  <select id="findPermissions" parameterType="java.lang.String" resultType="String">
+  	SELECT p.perm_name
+  	FROM sys_permission p 
+  	WHERE p.id IN 
+  	(
+	SELECT perm_id 
+	from sys_rp 
+	WHERE role_id in
+	(
+	SELECT ur.role_id 
+	FROM sys_user u 
+	INNER JOIN sys_ur ur 
+	on u.id = ur.user_id 
+	WHERE u.user_name = #{userName}
+	)
+	);
+  </select>
+  
+  
+  
+  
   <select id="selectByExample" parameterType="com.clifton.pojo.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

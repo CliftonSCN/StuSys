@@ -68,6 +68,26 @@
   <sql id="Base_Column_List">
     id, tc_num, tc_name, course_id
   </sql>
+  
+  <resultMap id="targetResultMap" type="com.clifton.dto.TeacherFin">
+    <result column="id" jdbcType="VARCHAR" property="tcNum" />
+    <result column="tc_name" jdbcType="VARCHAR" property="tcName" />
+    <result column="fin" jdbcType="INTEGER" property="fin" />
+  </resultMap>
+  
+  <select id="selectByStuNum" resultMap="targetResultMap">
+  	SELECT tc.id, tc.tc_name,
+	if(ISNULL(a.avg),1,0) AS fin
+	FROM t_teacher tc
+	LEFT JOIN t_course co on tc.course_id = co.tc_id 
+	LEFT JOIN t_course_class cc on cc.course_id = co.id 
+	LEFT JOIN t_student s ON s.class_id = cc.class_id
+	left JOIN t_appraise a ON tc.id = a.tc_id and a.stu_id = '1610701120'
+	WHERE s.stu_num = '1610701120' ORDER BY tc.id
+  </select>
+  
+  
+  
   <select id="selectByExample" parameterType="com.clifton.pojo.TeacherExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

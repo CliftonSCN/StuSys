@@ -31,7 +31,7 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"  
         p:defaultEncoding="UTF-8"  
         p:maxUploadSize="5400000"  
-     > 
+     >
     </bean>
 
 	<mvc:view-controller path="/login.jsp" view-name="/login.jsp"></mvc:view-controller> 

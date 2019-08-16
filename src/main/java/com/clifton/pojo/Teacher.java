@@ -9,6 +9,11 @@ public class Teacher {
 
     private Integer courseId;
 
+	@Override
+	public String toString() {
+		return "Teacher [id=" + id + ", tcNum=" + tcNum + ", tcName=" + tcName + ", courseId=" + courseId + "]";
+	}
+
 	public Integer getId() {
         return id;
     }

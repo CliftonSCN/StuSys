@@ -1,45 +1,45 @@
 package com.clifton.pojo;
 
 public class Appraise {
-    private Integer stuId;
+    private String stuId;
 
-    private Integer tcId;
+    private String tcId;
 
-    private Integer option1;
+    private Double option1;
 
-    private Integer option2;
+    private Double option2;
 
     private Double avg;
 
-    public Integer getStuId() {
+    public String getStuId() {
         return stuId;
     }
 
-    public void setStuId(Integer stuId) {
-        this.stuId = stuId;
+    public void setStuId(String stuId) {
+        this.stuId = stuId == null ? null : stuId.trim();
     }
 
-    public Integer getTcId() {
+    public String getTcId() {
         return tcId;
     }
 
-    public void setTcId(Integer tcId) {
-        this.tcId = tcId;
+    public void setTcId(String tcId) {
+        this.tcId = tcId == null ? null : tcId.trim();
     }
 
-    public Integer getOption1() {
+    public Double getOption1() {
         return option1;
     }
 
-    public void setOption1(Integer option1) {
+    public void setOption1(Double option1) {
         this.option1 = option1;
     }
 
-    public Integer getOption2() {
+    public Double getOption2() {
         return option2;
     }
 
-    public void setOption2(Integer option2) {
+    public void setOption2(Double option2) {
         this.option2 = option2;
     }
 

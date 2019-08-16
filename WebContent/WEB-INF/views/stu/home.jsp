@@ -14,6 +14,14 @@ p{
 </style>
 </head>
 <body>
+	<div class="weadmin-nav">
+		<span class="layui-breadcrumb"> <a href="">首页</a> <a href="">个人中心</a>
+			<a> <cite>个人信息</cite></a>
+		</span> <a class="layui-btn layui-btn-sm"
+			style="line-height: 1.6em; margin-top: 3px; float: right"
+			href="javascript:location.replace(location.href);" title="刷新"> <i
+			class="layui-icon" style="line-height: 30px">ဂ</i></a>
+	</div>
 	<ul class="layui-timeline" style="margin-left: 100px;margin-top: 50px;">
 		<li class="layui-timeline-item"><i
 			class="layui-icon layui-timeline-axis"></i>
@@ -53,6 +61,8 @@ p{
 			</div></li>
 	</ul>
 </body>
+<script src="${APP_PATH }/static/js/eleDel.js" type="text/javascript"
+		charset="utf-8"></script>
 <script type="text/javascript">
 $("#changePassword").bind("click",function(){
 	var input = $(this).prev();
@@ -78,6 +88,9 @@ $("#changePassword").bind("click",function(){
 			  				location.replace(href);
 	  			        }
 	  			    });
+	  			},
+	  			error:function () {
+	  				console.log("error");
 	  			}
 	  		});
 		});

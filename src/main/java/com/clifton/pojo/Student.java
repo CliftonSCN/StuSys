@@ -16,7 +16,7 @@ public class Student {
     private Integer classId;
     
     private Class stuClass;
-    
+        
     public Class getStuClass() {
 		return stuClass;
 	}

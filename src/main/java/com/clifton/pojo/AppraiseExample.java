@@ -114,52 +114,62 @@ public class AppraiseExample {
             return (Criteria) this;
         }
 
-        public Criteria andStuIdEqualTo(Integer value) {
+        public Criteria andStuIdEqualTo(String value) {
             addCriterion("stu_id =", value, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdNotEqualTo(Integer value) {
+        public Criteria andStuIdNotEqualTo(String value) {
             addCriterion("stu_id <>", value, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdGreaterThan(Integer value) {
+        public Criteria andStuIdGreaterThan(String value) {
             addCriterion("stu_id >", value, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStuIdGreaterThanOrEqualTo(String value) {
             addCriterion("stu_id >=", value, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdLessThan(Integer value) {
+        public Criteria andStuIdLessThan(String value) {
             addCriterion("stu_id <", value, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdLessThanOrEqualTo(Integer value) {
+        public Criteria andStuIdLessThanOrEqualTo(String value) {
             addCriterion("stu_id <=", value, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdIn(List<Integer> values) {
+        public Criteria andStuIdLike(String value) {
+            addCriterion("stu_id like", value, "stuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuIdNotLike(String value) {
+            addCriterion("stu_id not like", value, "stuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuIdIn(List<String> values) {
             addCriterion("stu_id in", values, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdNotIn(List<Integer> values) {
+        public Criteria andStuIdNotIn(List<String> values) {
             addCriterion("stu_id not in", values, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdBetween(Integer value1, Integer value2) {
+        public Criteria andStuIdBetween(String value1, String value2) {
             addCriterion("stu_id between", value1, value2, "stuId");
             return (Criteria) this;
         }
 
-        public Criteria andStuIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andStuIdNotBetween(String value1, String value2) {
             addCriterion("stu_id not between", value1, value2, "stuId");
             return (Criteria) this;
         }
@@ -174,52 +184,62 @@ public class AppraiseExample {
             return (Criteria) this;
         }
 
-        public Criteria andTcIdEqualTo(Integer value) {
+        public Criteria andTcIdEqualTo(String value) {
             addCriterion("tc_id =", value, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdNotEqualTo(Integer value) {
+        public Criteria andTcIdNotEqualTo(String value) {
             addCriterion("tc_id <>", value, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdGreaterThan(Integer value) {
+        public Criteria andTcIdGreaterThan(String value) {
             addCriterion("tc_id >", value, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andTcIdGreaterThanOrEqualTo(String value) {
             addCriterion("tc_id >=", value, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdLessThan(Integer value) {
+        public Criteria andTcIdLessThan(String value) {
             addCriterion("tc_id <", value, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdLessThanOrEqualTo(Integer value) {
+        public Criteria andTcIdLessThanOrEqualTo(String value) {
             addCriterion("tc_id <=", value, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdIn(List<Integer> values) {
+        public Criteria andTcIdLike(String value) {
+            addCriterion("tc_id like", value, "tcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTcIdNotLike(String value) {
+            addCriterion("tc_id not like", value, "tcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTcIdIn(List<String> values) {
             addCriterion("tc_id in", values, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdNotIn(List<Integer> values) {
+        public Criteria andTcIdNotIn(List<String> values) {
             addCriterion("tc_id not in", values, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdBetween(Integer value1, Integer value2) {
+        public Criteria andTcIdBetween(String value1, String value2) {
             addCriterion("tc_id between", value1, value2, "tcId");
             return (Criteria) this;
         }
 
-        public Criteria andTcIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andTcIdNotBetween(String value1, String value2) {
             addCriterion("tc_id not between", value1, value2, "tcId");
             return (Criteria) this;
         }
@@ -234,52 +254,52 @@ public class AppraiseExample {
             return (Criteria) this;
         }
 
-        public Criteria andOption1EqualTo(Integer value) {
+        public Criteria andOption1EqualTo(Double value) {
             addCriterion("option1 =", value, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1NotEqualTo(Integer value) {
+        public Criteria andOption1NotEqualTo(Double value) {
             addCriterion("option1 <>", value, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1GreaterThan(Integer value) {
+        public Criteria andOption1GreaterThan(Double value) {
             addCriterion("option1 >", value, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1GreaterThanOrEqualTo(Integer value) {
+        public Criteria andOption1GreaterThanOrEqualTo(Double value) {
             addCriterion("option1 >=", value, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1LessThan(Integer value) {
+        public Criteria andOption1LessThan(Double value) {
             addCriterion("option1 <", value, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1LessThanOrEqualTo(Integer value) {
+        public Criteria andOption1LessThanOrEqualTo(Double value) {
             addCriterion("option1 <=", value, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1In(List<Integer> values) {
+        public Criteria andOption1In(List<Double> values) {
             addCriterion("option1 in", values, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1NotIn(List<Integer> values) {
+        public Criteria andOption1NotIn(List<Double> values) {
             addCriterion("option1 not in", values, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1Between(Integer value1, Integer value2) {
+        public Criteria andOption1Between(Double value1, Double value2) {
             addCriterion("option1 between", value1, value2, "option1");
             return (Criteria) this;
         }
 
-        public Criteria andOption1NotBetween(Integer value1, Integer value2) {
+        public Criteria andOption1NotBetween(Double value1, Double value2) {
             addCriterion("option1 not between", value1, value2, "option1");
             return (Criteria) this;
         }
@@ -294,52 +314,52 @@ public class AppraiseExample {
             return (Criteria) this;
         }
 
-        public Criteria andOption2EqualTo(Integer value) {
+        public Criteria andOption2EqualTo(Double value) {
             addCriterion("option2 =", value, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2NotEqualTo(Integer value) {
+        public Criteria andOption2NotEqualTo(Double value) {
             addCriterion("option2 <>", value, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2GreaterThan(Integer value) {
+        public Criteria andOption2GreaterThan(Double value) {
             addCriterion("option2 >", value, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2GreaterThanOrEqualTo(Integer value) {
+        public Criteria andOption2GreaterThanOrEqualTo(Double value) {
             addCriterion("option2 >=", value, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2LessThan(Integer value) {
+        public Criteria andOption2LessThan(Double value) {
             addCriterion("option2 <", value, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2LessThanOrEqualTo(Integer value) {
+        public Criteria andOption2LessThanOrEqualTo(Double value) {
             addCriterion("option2 <=", value, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2In(List<Integer> values) {
+        public Criteria andOption2In(List<Double> values) {
             addCriterion("option2 in", values, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2NotIn(List<Integer> values) {
+        public Criteria andOption2NotIn(List<Double> values) {
             addCriterion("option2 not in", values, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2Between(Integer value1, Integer value2) {
+        public Criteria andOption2Between(Double value1, Double value2) {
             addCriterion("option2 between", value1, value2, "option2");
             return (Criteria) this;
         }
 
-        public Criteria andOption2NotBetween(Integer value1, Integer value2) {
+        public Criteria andOption2NotBetween(Double value1, Double value2) {
             addCriterion("option2 not between", value1, value2, "option2");
             return (Criteria) this;
         }
