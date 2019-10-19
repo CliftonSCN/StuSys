@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.clifton.dto.Response;
 import com.clifton.dto.TeacherFin;
 import com.clifton.pojo.Student;
+import com.clifton.pojo.Appraise;
 import com.clifton.service.StudentService;
 import com.clifton.service.TeacherService;
 import com.clifton.service.UserService;
@@ -46,9 +47,9 @@ public class StudentController {
 	
 	@GetMapping("/getGrade")
 	@ResponseBody
-	public Response getGrade(String id) {
+	public Response getGrade(@RequestParam("id")String id) {
 		Appraise appraise = teacherService.getGradeById(id);
-		return null;
+		return new Response().success(appraise);
 	}
 	
 	/**

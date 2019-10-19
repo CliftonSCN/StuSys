@@ -45,11 +45,11 @@
 					type:"GET",
 					data:{"id":"${id}"},
 					success:function(res){
-						
+						$("#param1").replaceWith("<h2>你选择了："+res.data.option1+"分</h2>");
+						$("#param2").replaceWith("<h2>你选择了："+res.data.option2+"分</h2>");
+						$("#btn_submit").remove();
 					}
 				});
-				$("#param1").replaceWith("<h2>你选择了：3分</h2>");
-				$("#param2").replaceWith("<h2>你选择了：3分</h2>");
 			}
 		});
 	
@@ -106,6 +106,7 @@
 				success : function() {
 					$("#param1").replaceWith("<h2>你选择了："+map.get("param1")+"分</h2>");
 					$("#param2").replaceWith("<h2>你选择了："+map.get("param2")+"分</h2>");
+					$("#btn_submit").remove();
 				}
 			});
 			return false;

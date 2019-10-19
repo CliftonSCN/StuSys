@@ -17,14 +17,14 @@ import com.clifton.pojo.Elective;
 public interface ElectiveService {
 	
 	/**
-     * 查询全部的秒杀记录
+     * 查询全部的选课记录
      * 
      * @return
      */
     List<Elective> getElectiveList(String order);
 
     /**
-     * 查询单个秒杀记录
+     * 查询单个选课记录
      * 
      * @param seckillId
      * @return
@@ -32,18 +32,17 @@ public interface ElectiveService {
     Elective getById(int id);
 
     /**
-     * 在秒杀开启时输出秒杀接口的地址，否则输出系统时间和秒杀时间
+     * 在选课开启时输出选课接口的地址，否则输出系统时间和选课时间
      * 
-     * @param seckillId 秒杀商品Id
+     * @param id 选课Id
      * @return 根据对应的状态返回对应的状态实体
      */
     Exposer exportSeckillUrl(int id);
 
     /**
-     * 执行秒杀操作，有可能失败，有可能成功，所以要抛出我们允许的异常
+     * 执行选课操作，有可能失败，有可能成功，所以要抛出我们允许的异常
      * 
-     * @param seckillId 秒杀的商品ID
-     * @param userPhone 手机号码
+     * @param seckillId 选课ID
      * @param md5 md5加密值
      * @return 根据不同的结果返回不同的实体信息
      */

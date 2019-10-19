@@ -16,7 +16,6 @@ import com.clifton.dao.TeacherMapper;
 import com.clifton.dao.UserMapper;
 import com.clifton.dto.TeacherFin;
 import com.clifton.pojo.Elective;
-import com.clifton.pojo.Teacher;
 import com.clifton.pojo.User;
 import com.clifton.redis.RedisHandle;
 

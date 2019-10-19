@@ -16,7 +16,7 @@ public interface UserMapper {
 	
 	Set<String> findPermissions(String userName);
 	
-	int insertStuUserBatch();
+	int insertStuUserBatch(String password);
 	
     long countByExample(UserExample example);
 

@@ -55,28 +55,35 @@ public class StudentServiceImpl implements StudentService {
 			e.printStackTrace();
 		}
 		List<Student> students = new ArrayList<Student>();
-		List<String> nums = map.get("学号");
-		List<String> names = map.get("姓名");
-		List<String> phones = map.get("电话");
-		List<String> emails = map.get("邮箱");
-		List<String> genders = map.get("性别");
-		redisHandle.set("uploadExcel", "70%", (long) 240);
 		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			List<String> nums = map.get("学号");
+			List<String> names = map.get("姓名");
+			List<String> phones = map.get("电话");
+			List<String> emails = map.get("邮箱");
+			List<String> genders = map.get("性别");
+			redisHandle.set("uploadExcel", "70%", (long) 240);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for (int i = 0; i < nums.size(); i++) {
+				Student student = new Student();
+				student.setStuNum(nums.get(i));
+				student.setStuName(names.get(i));
+				student.setStuPhone(phones.get(i));
+				student.setStuEmail(emails.get(i));
+				student.setStuGender(Integer.valueOf((String) genders.get(i).subSequence(0, 1)));
+				students.add(student);
+			}
+			studentMapper.insertBatch(students);
+		} catch (Exception e) {
+			redisHandle.set("uploadExcel", "error", (long) 240);
+			File file = new File(realpath+"\\"+newName);
+			file.delete();
+			throw e;
 		}
-		for (int i = 0; i < nums.size(); i++) {
-			Student student = new Student();
-			student.setStuNum(nums.get(i));
-			student.setStuName(names.get(i));
-			student.setStuPhone(phones.get(i));
-			student.setStuEmail(emails.get(i));
-			student.setStuGender(Integer.valueOf((String) genders.get(i).subSequence(0, 1)));
-			students.add(student);
-		}
-		studentMapper.insertBatch(students);
 		File file = new File(realpath+"\\"+newName);
 		file.delete();
 		redisHandle.set("uploadExcel", "100%", (long) 240);

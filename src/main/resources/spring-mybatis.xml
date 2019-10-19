@@ -142,7 +142,14 @@
 	<bean id="aisellPermissionsAuthorizationFilter" class="com.clifton.shiro.filter.AisellPermissionsAuthorizationFilter" />
 
 	<!-- 配置自定义Realm -->
-	<bean id="myRealm" class="com.clifton.shiro.MyRealm" />
+	<bean id="myRealm" class="com.clifton.shiro.MyRealm">
+		<property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="MD5"></property> <!-- 加密算法的名称 -->
+                <property name="hashIterations" value="1024"></property> <!-- 配置加密的次数 -->
+            </bean>
+        </property>
+	</bean>
 	<!-- 安全管理器 -->
 	<bean id="securityManager"
 		class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">

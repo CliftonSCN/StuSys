@@ -12,6 +12,7 @@ import com.clifton.pojo.User;
 import com.clifton.pojo.UserExample;
 import com.clifton.pojo.UserExample.Criteria;
 import com.clifton.service.UserService;
+import com.clifton.utils.MD5Util;
 
 /**  
 * @author Clifton  
@@ -42,18 +43,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Response insertAllStuIntoUser() {
+		 String password = MD5Util.transfer("123456", null);
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		userMapper.insertStuUserBatch();
+		userMapper.insertStuUserBatch(password);
 		return new Response().success();
 	}
 
 	@Override
 	public void changePasswordByStuNum(String stuNum, String password) throws Exception {
-		int updateRow = userMapper.updatePassword(stuNum, password);
+		
+		int updateRow = userMapper.updatePassword(stuNum, MD5Util.transfer(password, stuNum));
 		if (updateRow < 1) {
 			throw new Exception("更新失败");
 		}

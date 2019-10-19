@@ -46,7 +46,6 @@ public class UserController {
 	@PostMapping("/login")
 	@ResponseBody
 	public Response login(User user, HttpSession session) {
-		
 		Subject subject = SecurityUtils.getSubject() ;
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPassword()) ;
 		try {

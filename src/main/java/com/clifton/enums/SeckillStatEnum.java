@@ -8,7 +8,7 @@ public enum SeckillStatEnum {
 
     SUCCESS(1,"选课成功"),
     END(0,"选课结束"),
-    REPEAT_KILL(-1,"已选课"),
+    REPEAT_KILL(-1,"你已经选过课了"),
     INNER_ERROR(-2,"系统异常"),
     DATE_REWRITE(-3,"数据篡改");
 

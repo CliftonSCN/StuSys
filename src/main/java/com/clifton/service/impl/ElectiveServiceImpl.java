@@ -52,7 +52,7 @@ public class ElectiveServiceImpl implements com.clifton.service.ElectiveService 
 	@Override
 	public Exposer exportSeckillUrl(int id) {
 		Elective elective = electiveMapper.queryById(id);
-		if (elective == null) // 说明查不到这个秒杀产品的记录
+		if (elective == null) // 说明查不到这个选课的记录
 		{
 			return new Exposer(false, id);
 		}
@@ -61,12 +61,12 @@ public class ElectiveServiceImpl implements com.clifton.service.ElectiveService 
 		Date endTime = elective.getEndTime();
 		// 系统当前时间
 		Date nowTime = new Date();
-		// 若是秒杀未开启
+		// 若是选课未开启
 		if (startTime.getTime() > nowTime.getTime() || endTime.getTime() < nowTime.getTime()) {
 			return new Exposer(false, id, nowTime.getTime(), startTime.getTime(), endTime.getTime());
 		}
 
-		// 秒杀开启，返回秒杀商品的id、用给接口加密的md5
+		// 选课开启，返回选课的id、用给接口加密的md5
 		String md5 = getMD5(id);
 		return new Exposer(true, md5, id);
 	}
@@ -77,16 +77,16 @@ public class ElectiveServiceImpl implements com.clifton.service.ElectiveService 
 		return md5;
 	}
 
-	//秒杀是否成功，成功:减库存，增加明细；失败:抛出异常，事务回滚
+	//选课是否成功，成功:减库存，增加明细；失败:抛出异常，事务回滚
 	@Override
 	@Transactional
 	public SeckillExecution executeSeckill(int id, int stuNum, String md5)
 			throws SeckillException, RepeatKillException, SeckillCloseException {
 		if (md5==null||!md5.equals(getMD5(id)))
         {
-            throw new SeckillException("seckill data rewrite");//秒杀数据被重写了
+            throw new SeckillException("seckill data rewrite");//选课数据被重写了
         }
-        //执行秒杀逻辑:减库存+增加购买明细
+        //执行选课逻辑
         Date nowTime=new Date();
 
         try{
@@ -94,17 +94,17 @@ public class ElectiveServiceImpl implements com.clifton.service.ElectiveService 
             int updateCount=electiveMapper.reduceNumber(id,nowTime);
             if (updateCount<=0)
             {
-                //没有更新库存记录，说明秒杀结束
+                //没有更新库存记录，说明选课结束
                 throw new SeckillCloseException("seckill is closed");
             }else {
-                //否则更新了库存，秒杀成功,增加明细
+                //否则更新了库存，选课成功,增加明细
                 int insertCount=seccessKilledMapper.insertSuccessKilled(id, stuNum, nowTime);
-                //看是否该明细被重复插入，即用户是否重复秒杀
+                //看是否该明细被重复插入，即用户是否重复选课
                 if (insertCount<=0)
                 {
                     throw new RepeatKillException("seckill repeated");
                 }else {
-                    //秒杀成功,得到成功插入的明细记录,并返回成功秒杀的信息
+                    //选课成功,得到成功插入的明细记录,并返回成功选课的信息
                     SuccessKilled successKilled=seccessKilledMapper.queryByIdWithElective(stuNum);
                     return new SeckillExecution(id,SeckillStatEnum.SUCCESS,successKilled);
                 }
@@ -118,7 +118,7 @@ public class ElectiveServiceImpl implements com.clifton.service.ElectiveService 
         }catch (Exception e)
         {
             logger.error(e.getMessage(),e);
-            //将编译期异常转化为运行期异常
+            //转化为运行期异常
             throw new SeckillException("seckill inner error :"+e.getMessage());
         }
 	}

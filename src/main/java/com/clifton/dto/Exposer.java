@@ -6,22 +6,22 @@ package com.clifton.dto;
 */
 public class Exposer {
 	
-	 // 是否开启秒杀
+	 // 是否开启选课
     private boolean exposed;
 
     // 加密措施
     private String md5;
 
-    //id为seckillId的商品的秒杀地址
+    //id为elective的选课地址
     private int electiveId;
 
     // 系统当前时间(毫秒)
     private long now;
 
-    // 秒杀的开启时间
+    // 选课的开启时间
     private long start;
 
-    // 秒杀的结束时间
+    // 选课的结束时间
     private long end;
     
     //当前学号

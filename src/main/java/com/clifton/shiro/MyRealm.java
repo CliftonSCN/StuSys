@@ -8,6 +8,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 
 import com.clifton.pojo.User;
 import com.clifton.service.UserService;
@@ -55,9 +56,13 @@ public class MyRealm extends AuthorizingRealm {
 		String username = token.getPrincipal().toString();
 		User user = userService.findUserByUsername(username);
 		if (user != null) {
-			//将查询到的用户账号和密码存放到 authenticationInfo用于后面的权限判断。第三个参数随便放一个就行了。
-			AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(),
-					user.getUserPassword(), "a");
+			//将查询到的用户账号和密码存放到 authenticationInfo用于后面的权限判断。
+			AuthenticationInfo authenticationInfo;
+			if (user.getUserPassword().equals("fc1709d0a95a6be30bc5926fdb7f22f4")) {
+				authenticationInfo= new SimpleAuthenticationInfo(user.getUserName(), user.getUserPassword(), "a");
+			}else {
+				authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getUserPassword(), ByteSource.Util.bytes(username), "a");
+			}
 			return authenticationInfo;
 		} else {
 			return null;

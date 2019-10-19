@@ -48,8 +48,8 @@
 			<div class="weadmin-block">
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
 				<button class="layui-btn" onclick="MyAdminShow('添加用户','add')"><i class="layui-icon"></i>添加</button>
-				<button type="button" class="layui-btn layui-btn-normal" id="upload_prepare">选择学生Excel文件</button>
-				<button type="button" class="layui-btn" id="upload_start" onclick="upload_start()">开始上传</button>
+				<button type="button" class="layui-btn layui-btn-normal" id="upload_prepare">选择(.xlsx)文件</button>
+				<button type="button" class="layui-btn" id="upload_start" onclick="">开始上传</button>
 				<div id="bar_process" class="layui-progress layui-progress-big" lay-filter="demo" lay-showpercent="true"  style="width: 300px;vertical-align: middle;display: none;">
 				  <div class="layui-progress-bar" lay-percent="0%" ></div>
 				</div>
@@ -135,12 +135,23 @@
 		    	    elem: '#upload_prepare'
 		    	    ,url: '${APP_PATH }/admin/uploadExcel'
 		    	    ,accept: 'file'
+		    	    ,exts:'xlsx'
 		    	    ,method: 'POST'
 		    	    ,auto: false
 		    	    ,bindAction: '#upload_start'
+		    	    ,choose: function(obj){
+		    	    	$("#upload_start").attr("onclick", "upload_start()");
+		    	    	obj.preview(function(index, file, result){
+		    	    	      var span = $("<span class='layui-inline layui-upload-choose'>"+file.name+"</span>");
+		    	    	      $("#upload_start").before(span);
+		    	    	});
+		    	    }
 		    	    ,done: function(res){
 		    	      layer.msg(res.meta.message);
 		    	    }
+		    	    ,error: function(res) {
+		    	    	layer.msg(res.meta.message);
+					}
 		    	  });
 	    	});
     	</script>
@@ -160,12 +171,26 @@
 					layui.use('element', function(){
 						  var $ = layui.jquery
 						  ,element = layui.element;
-						if (res != null && res != "") {
+						if (res != null && res != "" && res != "error") {
 							if (res == "100%") {
 								clearInterval(clock);
 								setTimeout(delProcess,200);
 							}
 							element.progress('demo', res);
+						}else if (res == "error") {
+							clearInterval(clock);
+							$.ajax({
+								url:"${APP_PATH }/admin/delProcess",
+								method:"DELETE",
+								type:"json",
+								data:JSON.stringify({error:'error'}),
+								success:function(res){
+									layer.msg(res.meta.message);
+									bar_process.css("display","none");
+									bar_process.children().first().children().first().text("0%");
+									element.progress('demo', "0%");
+								}
+							});
 						}else {
 							element.progress('demo', "5%");
 						}
@@ -182,6 +207,11 @@
 					layer.msg(res.meta.message);
 					bar_process.css("display","none");
 					bar_process.children().first().children().first().text("0%");
+					layui.use('element', function(){
+						  var $ = layui.jquery
+						  ,element = layui.element;
+						  element.progress('demo', "0%");
+					});
 				}
 			});
 		}

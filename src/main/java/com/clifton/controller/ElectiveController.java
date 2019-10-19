@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,16 +74,16 @@ public class ElectiveController {
 
 		model.addAttribute("elective", elective);
 
-		return "detail";
+		return "elective/detail";
 	}
 
-	// ajax ,json暴露秒杀接口的方法
+	// ajax ,json暴露选课接口的方法
 	@GetMapping(value = "/{electiveId}/exposer", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public SeckillResult<Exposer> exposer(@PathVariable("electiveId") Integer electiveId, HttpSession session) {
 		SeckillResult<Exposer> result;
 		try {
-			// 在秒杀开启时输出秒杀接口的地址，否则输出系统时间和秒杀时间
+			// 在选课开启时输出选课接口的地址，否则输出系统时间和选课时间
 			Exposer exposer = electiveService.exportSeckillUrl(electiveId);
 			result = new SeckillResult<Exposer>(true, exposer);
 		} catch (Exception e) {
@@ -94,7 +95,7 @@ public class ElectiveController {
 	}
 
 	/**
-	 * 处理秒杀请求
+	 * 处理选课请求
 	 * 
 	 * @param electiveId
 	 * @param md5
@@ -105,7 +106,7 @@ public class ElectiveController {
 	@ResponseBody
 	public SeckillResult<SeckillExecution> execute(@PathVariable("electiveId") Integer electiveId,
 			@PathVariable("md5") String md5, HttpSession session) {
-		String stuNum = (String) session.getAttribute("userName");
+		String stuNum = (String) SecurityUtils.getSubject().getPrincipal();
 		if (stuNum == null) {
 			logger.info("stuNum is null~~~~~~~~~~~~~~~");
 		}

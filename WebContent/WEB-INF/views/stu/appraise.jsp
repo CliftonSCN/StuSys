@@ -19,12 +19,12 @@
 	</div>
 	<div class="weadmin-body">
 		<div class="layui-tab layui-tab-brief" lay-filter="tcTab">
-			<blockquote class="layui-elem-quote">教师选项卡</blockquote>
+			<blockquote class="layui-elem-quote">教师选项卡（红色标志表示未完成教学评优）</blockquote>
 			<ul class="layui-tab-title" id="tab_tc">
 				
 			</ul>
 			<div class="layui-tab-content" style="height: 100px;" id="div_tc">
-				
+			
 			</div>
 		</div>
 	<script src="${APP_PATH }/static/js/eleDel.js" type="text/javascript"
@@ -45,7 +45,11 @@
 			$("#div_tc").empty();
 			//在选项卡头上标记
 			$.each(res, function(index,item) {
-				var li = $("<li></li>").append(item.tcName).appendTo("#tab_tc");
+				var li = $("<li></li>").append(item.tcName)
+				if (item.fin == 1) {
+					li.append("<i class='layui-icon layui-icon-tips' style='font-size: 15px; color: #FF5722;vertical-align: middle;'></i>");
+				}
+				li.appendTo("#tab_tc");
 				var div = $("<div class='layui-tab-item'></div>").append("<iframe frameborder='0' src='${APP_PATH }/stu/toGrade?id="+item.tcNum+"&fin="+item.fin+"' scrolling='no' class='weIframe' style='width: 100%; height: 400px;'></iframe>").appendTo("#div_tc");
 				if (index == 0) {
 					li.attr("class","layui-this");

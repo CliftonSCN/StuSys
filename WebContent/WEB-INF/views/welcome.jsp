@@ -10,7 +10,7 @@
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta charset="UTF-8">
-		<title>YouTao</title>
+		<title>StuSYS</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -30,13 +30,13 @@
 								<div class="layui-carousel weadmin-notice" lay-filter="notice" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 280px;">
 									<div carousel-item="">
 										<div class="">
-											<a href="#" target="_blank" class="layui-bg-red">欢迎使用YouTao</a>
+											<a target="_blank" class="layui-bg-red">欢迎使用StuSYS</a>
 										</div>
 										<div class="">
-											<a href="https://www.baidu.com" target="_blank" class="layui-bg-blue">YouTao帮助手册</a>
+											<a href="https://www.baidu.com" target="_blank" class="layui-bg-blue">StuSYS帮助手册</a>
 										</div>
 										<div class="">
-											<a href="https://www.baidu.com" target="_blank" class="layui-bg-green">了解YouTao</a>
+											<a href="https://www.baidu.com" target="_blank" class="layui-bg-green">了解StuSYS</a>
 										</div>
 									</div>
 								</div>
@@ -47,20 +47,20 @@
 					<div class="layui-col-md5">
 						<div class="layui-card">
 							<div class="layui-card-header">
-								作者叨叨
+								系统简介
 								<i class="layui-icon" style="color: #FF5722;">&#xe756;</i>
 							</div>
 							<div class="layui-card-body layui-text weadmin-text">
-								<p>YouTao</p>
-								<p>虽然名字叫YouTao，但并不是一个卖油桃的。</p>
-								<p>咱们是做管理的。</a></p>				
+								<p>StuSYS</p>
+								<p>学生教务管理系统</p>
+								<p><a href="#" onclick="window.open ('http://47.102.217.51')">个人简历</a></p>				
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div style="clear: both;overflow: hidden;margin-left: 15px;margin-right: 15px;">
-				<blockquote class="layui-elem-quote">欢迎使用YouTao后台管理系统
+				<blockquote class="layui-elem-quote">欢迎使用StuSYS后台管理系统
 				</blockquote>
 			</div>
 		</div>

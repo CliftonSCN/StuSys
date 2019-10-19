@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,7 +52,12 @@ public class AdminController {
 	@ResponseBody
 	public Response importStuBatch() {
 		//批量插入学生到用户表，密码默认为123456
-		userService.insertAllStuIntoUser();
+		try {
+			userService.insertAllStuIntoUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response().failure("系统异常");
+		}
 		logger.info("---------任务完成------------------");
 		return new Response().success("任务完成");
 	}
@@ -65,9 +71,13 @@ public class AdminController {
 	
 	@DeleteMapping("/delProcess")
 	@ResponseBody
-	public Response delProcess() {
-		//删除缓存中插入进度
+	public Response delProcess(@RequestBody(required=false)String error) {
+		//删除缓存中插入的进度
 		studentService.delProcess();
+		if (error != null) {
+			//JsonUtil.parseSingleString(error, "error");
+			return new Response().failure("数据内容格式异常");
+		}
 		return new Response().success("录入成功");
 	}
 	
@@ -99,6 +109,8 @@ public class AdminController {
 		} catch (IOException e) {
 			response.failure("服务器异常");
 			e.printStackTrace();
+		}catch (Exception e) {
+			response.failure("Excel格式不正确");
 		}
 		return response;
 	}

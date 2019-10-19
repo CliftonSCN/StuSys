@@ -71,12 +71,12 @@
 					</ul>
 					<ul class="sub-menu">
 						<li><a _href="stu/course"> <i class="iconfont">&#xe6a7;</i>
-								<cite>课程信息</cite>
+								<cite><del>课程信息</del></cite>
 						</a></li>
 					</ul>
 					<ul class="sub-menu">
 						<li><a _href="stu/stuScore"> <i class="iconfont">&#xe6a7;</i>
-								<cite>成绩查询</cite>
+								<cite><del>成绩查询</del></cite>
 						</a></li>
 					</ul>
 					<ul class="sub-menu">
@@ -95,7 +95,7 @@
 					</ul>
 					<ul class="sub-menu">
 						<li><a _href="elective/Elevtived"> <i class="iconfont">&#xe6a7;</i>
-								<cite>已选课程</cite>
+								<cite><del>已选课程</del></cite>
 						</a></li>
 					</ul></li>
 
@@ -104,7 +104,7 @@
 				</a>
 					<ul class="sub-menu">
 						<li><a _href="tc/tcScore"> <i class="iconfont">&#xe6a7;</i>
-								<cite>成绩录入</cite>
+								<cite><del>成绩录入</del></cite>
 						</a></li>
 					</ul>
 					<ul class="sub-menu">
@@ -118,7 +118,7 @@
 				</a>
 					<ul class="sub-menu">
 						<li><a _href="admin/userList"> <i class="iconfont">&#xe6a7;</i>
-								<cite>用户信息</cite>
+								<cite><del>用户信息</del></cite>
 						</a></li>
 					</ul>
 					<ul class="sub-menu">
@@ -133,7 +133,7 @@
 					</ul>
 					<ul class="sub-menu">
 						<li><a _href="admin/tcList"> <i class="iconfont">&#xe6a7;</i>
-								<cite>教师信息</cite>
+								<cite><del>教师信息</del></cite>
 						</a></li>
 					</ul></li>
 

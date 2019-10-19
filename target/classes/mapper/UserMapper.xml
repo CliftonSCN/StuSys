@@ -147,7 +147,7 @@
   
   <insert id="insertStuUserBatch">
   	insert into sys_user (user_name,user_password)
-  	select s.stu_num, '123456' user_password
+  	select s.stu_num, #{password} user_password
   	from t_student s left join sys_user u
   	on s.stu_num = u.user_name
   	where u.user_name is null
