@@ -2,10 +2,12 @@ package com.clifton.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,6 +126,17 @@ public class AdminController {
 		mv.setViewName("admin/stuList");
 		mv.addObject("pageInfo", pageInfo);
 		return mv;
+	}
+	
+	@DeleteMapping("/deleteAll")
+	@ResponseBody
+	public Response delAll(@RequestBody() String[] list) {
+		ArrayList<String> stuNumList = new ArrayList<>();
+		for (String stuNum : list) {
+			stuNumList.add(stuNum);
+		}
+		studentService.delAll(stuNumList);
+		return new Response().success();
 	}
 
 }

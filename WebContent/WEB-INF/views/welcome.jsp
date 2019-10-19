@@ -52,8 +52,8 @@
 							</div>
 							<div class="layui-card-body layui-text weadmin-text">
 								<p>StuSYS</p>
-								<p>学生教务管理系统</p>
-								<p><a href="#" onclick="window.open ('http://47.102.217.51')">个人简历</a></p>				
+								<p><a href="#" onclick="window.open ('http://47.102.217.51')">个人简历</a></p>
+								<p><a href="#" onclick="window.open ('https://github.com/CliftonSCN/StuSys')">GitHub</a></p>				
 							</div>
 						</div>
 					</div>

@@ -76,7 +76,7 @@
 					<c:forEach items="${pageInfo.list }" var="stu">
 						<tr>
 						<td>
-							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='1'><i class="layui-icon">&#xe605;</i></div>
+							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="${stu.stuNum }"><i class="layui-icon">&#xe605;</i></div>
 						</td>
 						<td>${stu.stuNum }</td>
 						<td>${stu.stuName }</td>
@@ -255,15 +255,17 @@
 				if (data == "" || data == null) {
 					layer.alert('请选择数据');
 				}else {
+					console.log(data)
 					layer.confirm('确认要删除这些数据吗？', function(index) {
 						//捉到所有被选中的，发异步进行删除
 						$.ajax({
 							url:"${APP_PATH}/admin/deleteAll",
-	    					data:"list="+data,
-	    					type:"post",
+	    					data:JSON.stringify(data),
+	    					type:"delete",
+	    					contentType : "application/json" ,
 	    					success:function(){
 	    						layer.close(index);
-	    						parent.location.reload();
+	    						location.replace(location.href);
 	    					}
 						})
 					});

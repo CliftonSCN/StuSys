@@ -102,12 +102,12 @@
 	</resultMap>
 	<select id="selectByNum" parameterType="java.lang.String"
 		resultMap="ResultMapWithClass">
-		select * from t_student s, t_class c
-		where s.class_id = c.id and s.stu_num = #{num}
+		select * from t_student s left join t_class c
+		on s.class_id = c.id where s.stu_num = #{num}
 	</select>
 	<select id="selectAllWithClass" resultMap="ResultMapWithClass">
-		select * from t_student s, t_class c
-		where s.class_id = c.id
+		select * from t_student s left join t_class c
+		on s.class_id = c.id
 	</select>
 	<insert id="insertBatch" parameterType="java.util.List">
 		insert ignore into t_student(stu_num, stu_name, stu_gender, stu_email,
@@ -122,6 +122,12 @@
 			)
 		</foreach>
 	</insert>
+	<delete id="delAll" parameterType="java.util.List">
+        delete from t_student where stu_num IN
+        <foreach collection="stuNumList" item="num"  index="index" open="(" close=")" separator=",">
+            #{num}
+        </foreach>
+    </delete>
 
 
 

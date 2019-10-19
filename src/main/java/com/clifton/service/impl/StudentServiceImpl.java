@@ -105,4 +105,10 @@ public class StudentServiceImpl implements StudentService {
 		return studentMapper.selectByNum(num);
 	}
 
+	@Override
+	public void delAll(ArrayList<String> stuNumList) {
+		studentMapper.delAll(stuNumList);
+		
+	}
+
 }

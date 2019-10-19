@@ -5,6 +5,7 @@ package com.clifton.service;
 * @project stusys
 */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.clifton.pojo.Student;
@@ -41,5 +42,7 @@ public interface StudentService {
 	 * @return
 	 */
 	Student getStudentByNum(String attribute);
+
+	void delAll(ArrayList<String> stuNumList);
 
 }

@@ -2,6 +2,8 @@ package com.clifton.dao;
 
 import com.clifton.pojo.Student;
 import com.clifton.pojo.StudentExample;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,4 +36,6 @@ public interface StudentMapper {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
+
+	void delAll(@Param("stuNumList")ArrayList<String> stuNumList);
 }

@@ -44,7 +44,7 @@
 						<!-- 二级菜单 -->
 						<dd>
 							<a href="#"
-								onclick="WeAdminShow('个人信息','${APP_PATH }/stu/home',1100,700)">个人信息</a>
+								onclick="WeAdminShow('个人信息','${APP_PATH }/stu/home')">个人信息</a>
 						</dd>
 						<dd>
 							<a class="loginout" href="user/logout">退出</a>
